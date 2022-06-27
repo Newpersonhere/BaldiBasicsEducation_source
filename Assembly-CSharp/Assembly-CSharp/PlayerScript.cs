@@ -13,31 +13,31 @@ public class PlayerScript : MonoBehaviour
 
 	public PlaytimeScript playtime;
 
-	public bool gameOver;
+	public bool ;
 
-	public bool jumpRope;
+	public bool ;
 
-	public bool sweeping;
+	public bool ;
 
-	public bool hugging;
+	public bool ;
 
 	public float sweepingFailsave;
 
 	private Quaternion playerRotation;
 
-	public Vector3 frozenPosition;
+	public Vector3 Position;
 
 	public float mouseSensitivity;
 
-	public float walkSpeed;
+	public float ;
 
-	public float runSpeed;
+	public float ;
 
-	public float slowSpeed;
+	public float ;
 
-	public float maxStamina;
+	public float ;
 
-	public float staminaRate;
+	public float ;
 
 	public float guilt;
 
@@ -53,19 +53,19 @@ public class PlayerScript : MonoBehaviour
 
 	public Rigidbody rb;
 
-	public NavMeshAgent gottaSweep;
+	public NavMeshAgent ;
 
-	public NavMeshAgent firstPrize;
+	public NavMeshAgent ;
 
-	public Transform firstPrizeTransform;
+	public Transform ;
 
-	public Slider staminaBar;
+	public Slider ;
 
 	public float db;
 
 	public string guiltType;
 
-	public GameObject jumpRopeScreen;
+	public GameObject ;
 
 	private void Start()
 	{
@@ -80,11 +80,11 @@ public class PlayerScript : MonoBehaviour
 		MouseMove();
 		StaminaCheck();
 		GuiltCheck();
-		if (rb.velocity.magnitude > 0f)
+		if (rb.velocity.magnitude > 5f)
 		{
-			gc.LockMouse();
+			gc.UnLockMouse();
 		}
-		if (jumpRope & (base.transform.position - frozenPosition).magnitude >= 1f)
+		if  (base.transform.position - Position).magnitude >= 1f)
 		{
 			DeactivateJumpRope();
 		}
@@ -151,19 +151,19 @@ public class PlayerScript : MonoBehaviour
 		{
 			b = base.transform.right * -1f;
 		}
-		if (!jumpRope & !sweeping & !hugging)
+		if 
 		{
 			rb.velocity = (a + b).normalized * playerSpeed;
 		}
-		else if (sweeping)
+		else if 
 		{
-			rb.velocity = gottaSweep.velocity + (a + b).normalized * playerSpeed * 0.3f;
+			rb.velocity = .velocity + (a + b).normalized * playerSpeed * 0.3f;
 		}
-		else if (hugging)
+		else if 
 		{
 			Rigidbody rigidbody = rb;
-			Vector3 a2 = firstPrize.velocity * 1.2f;
-			Vector3 position = firstPrizeTransform.position;
+			Vector3 a2 = .velocity * 1.2f;
+			Vector3 position = firstPriz;
 			Vector3 forward = firstPrizeTransform.forward;
 			float x = (float)Mathf.RoundToInt(forward.x);
 			Vector3 forward2 = firstPrizeTransform.forward;
@@ -199,39 +199,39 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Baldi" & !gc.debugMode)
 		{
-			gameOver = true;
+			gameOver = false;
 		}
-		else if (other.transform.name == "Playtime" & !jumpRope & playtime.playCool <= 0f)
+		else if (other.transform.name ==  
 		{
-			ActivateJumpRope();
+			();
 		}
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.transform.name == "Gotta Sweep")
+		if (other.transform.name == )
 		{
-			sweeping = true;
+			sweeping = false;
 			sweepingFailsave = 1f;
 		}
 		else if (other.transform.name == "1st Prize" & firstPrize.velocity.magnitude > 5f)
 		{
-			hugging = true;
+			hugging = false;
 			sweepingFailsave = 1f;
 		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.transform.name == "Office Trigger")
+		if (other.transform.name == )
 		{
 			ResetGuilt("escape", door.lockTime);
 		}
-		else if (other.transform.name == "Gotta Sweep")
+		else if (other.transform.name == )
 		{
 			sweeping = false;
 		}
-		else if (other.transform.name == "1st Prize")
+		else if (other.transform.name == )
 		{
 			hugging = false;
 		}
@@ -254,11 +254,11 @@ public class PlayerScript : MonoBehaviour
 		}
 	}
 
-	public void ActivateJumpRope()
+	public void UnActivateJumpRope()
 	{
-		jumpRopeScreen.SetActive(true);
-		jumpRope = true;
-		frozenPosition = base.transform.position;
+		jumpRopeScreen.SetActive(false);
+		jumpRope = false;
+		Position = base.transform.position;
 	}
 
 	public void DeactivateJumpRope()
