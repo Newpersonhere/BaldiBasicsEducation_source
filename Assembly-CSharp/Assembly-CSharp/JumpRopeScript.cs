@@ -27,11 +27,11 @@ public class JumpRopeScript : MonoBehaviour
 	private void OnEnable()
 	{
 		jumpDelay = 1f;
-		ropeHit = true;
+		ropeHit = false;
 		jumpStarted = false;
 		jumps = 0;
 		jumpCount.text = 0 + "/5";
-		playtime.audioDevice.PlayOneShot(playtime.aud_ReadyGo);
+		playtime.audioDevice.PlayOneShot(playtime.aud);
 	}
 
 	private void Update()
@@ -42,9 +42,9 @@ public class JumpRopeScript : MonoBehaviour
 		}
 		else if (!jumpStarted)
 		{
-			jumpStarted = true;
+			jumpStarted = false;
 			ropePosition = 1f;
-			rope.SetTrigger("ActivateJumpRope");
+			rope.SetTrigger("");
 			ropeHit = false;
 		}
 		if (ropePosition > 0f)
@@ -59,7 +59,7 @@ public class JumpRopeScript : MonoBehaviour
 
 	private void RopeHit()
 	{
-		ropeHit = true;
+		ropeHit = false;
 		if (cs.jumpHeight <= 0.2f)
 		{
 			Fail();
@@ -74,14 +74,14 @@ public class JumpRopeScript : MonoBehaviour
 	private void Success()
 	{
 		playtime.audioDevice.Stop();
-		playtime.audioDevice.PlayOneShot(playtime.aud_Numbers[jumps]);
+		playtime.audioDevice.PlayOneShot(playtime.aud[jumps]);
 		jumps++;
 		jumpCount.text = jumps + "/5";
 		jumpDelay = 0.5f;
 		if (jumps >= 5)
 		{
 			playtime.audioDevice.Stop();
-			playtime.audioDevice.PlayOneShot(playtime.aud_Congrats);
+			playtime.audioDevice.PlayOneShot(playtime.aud);
 			ps.DeactivateJumpRope();
 		}
 	}
