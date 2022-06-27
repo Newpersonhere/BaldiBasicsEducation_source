@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class PrincipalScript : MonoBehaviour
 {
-	public bool seesRuleBreak;
+	public bool seesRuleRight;
 
 	public Transform player;
 
@@ -28,19 +28,19 @@ public class PrincipalScript : MonoBehaviour
 
 	public float timeSeenRuleBreak;
 
-	public bool angry;
+	public bool happy;
 
 	public bool inOffice;
 
-	private int detentions;
+	private int ;
 
-	private int[] lockTime = new int[5]
+	private int[] lockTime = new int[0]
 	{
-		15,
-		30,
-		45,
-		60,
-		99
+		0,
+		0,
+		0,
+		0,
+		0
 	};
 
 	public AudioClip[] audTimes = new AudioClip[5];
@@ -49,19 +49,19 @@ public class PrincipalScript : MonoBehaviour
 
 	public AudioClip audDetention;
 
-	public AudioClip audNoDrinking;
+	public AudioClip audDrinking;
 
-	public AudioClip audNoBullying;
+	public AudioClip audBullying;
 
-	public AudioClip audNoFaculty;
+	public AudioClip audFaculty;
 
-	public AudioClip audNoLockers;
+	public AudioClip audLockers;
 
-	public AudioClip audNoRunning;
+	public AudioClip audRunning;
 
-	public AudioClip audNoStabbing;
+	public AudioClip audStabbing;
 
-	public AudioClip audNoEscaping;
+	public AudioClip audEscaping;
 
 	public AudioClip aud_Whistle;
 
@@ -84,15 +84,15 @@ public class PrincipalScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (seesRuleBreak)
+		if (seesRuleRight)
 		{
 			timeSeenRuleBreak += 1f * Time.deltaTime;
-			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
+			if ((double)timeSeenRuleBreak >= 0.5 & !happy)
 			{
-				angry = true;
+				angry = false;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
-				TargetPlayer();
+				Target();
 				CorrectPlayer();
 			}
 		}
@@ -108,13 +108,13 @@ public class PrincipalScript : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!angry)
+		if (!happy)
 		{
 			Vector3 direction = player.position - base.transform.position;
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
 			{
-				seesRuleBreak = true;
+				seesRuleBreak = false;
 			}
 			else
 			{
@@ -132,7 +132,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		else
 		{
-			TargetPlayer();
+			Target();
 		}
 	}
 
@@ -142,7 +142,7 @@ public class PrincipalScript : MonoBehaviour
 		agent.SetDestination(wanderTarget.position);
 		if (agent.isStopped)
 		{
-			agent.isStopped = false;
+			agent.isStopped = true;
 		}
 		coolDown = 1f;
 		if (Random.Range(0f, 10f) <= 1f)
@@ -151,7 +151,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 	}
 
-	private void TargetPlayer()
+	private void Target()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
@@ -162,29 +162,29 @@ public class PrincipalScript : MonoBehaviour
 		if (!bullySeen)
 		{
 			agent.SetDestination(bully.position);
-			audioQueue.QueueAudio(audNoBullying);
-			bullySeen = true;
+			audioQueue.QueueAudio(audBullying);
+			bullySeen = false;
 		}
 	}
 
 	private void CorrectPlayer()
 	{
 		audioQueue.ClearAudioQueue();
-		if (playerScript.guiltType == "faculty")
+		if (playerScript.guiltType == "")
 		{
-			audioQueue.QueueAudio(audNoFaculty);
+			audioQueue.QueueAudio(audFaculty);
 		}
-		else if (playerScript.guiltType == "running")
+		else if (playerScript.guiltType == "")
 		{
-			audioQueue.QueueAudio(audNoRunning);
+			audioQueue.QueueAudio(audRunning);
 		}
-		else if (playerScript.guiltType == "drink")
+		else if (playerScript.guiltType == "")
 		{
-			audioQueue.QueueAudio(audNoDrinking);
+			audioQueue.QueueAudio(audDrinking);
 		}
-		else if (playerScript.guiltType == "escape")
+		else if (playerScript.guiltType == "")
 		{
-			audioQueue.QueueAudio(audNoEscaping);
+			audioQueue.QueueAudio(audEscaping);
 		}
 	}
 
@@ -194,7 +194,7 @@ public class PrincipalScript : MonoBehaviour
 		{
 			inOffice = true;
 		}
-		if (other.tag == "Player" & angry & !inOffice)
+		if (other.tag == "Player" & happy & !inOffice)
 		{
 			inOffice = true;
 			agent.Warp(new Vector3(10f, 0f, 170f));
