@@ -45,7 +45,7 @@ public class MathGameScript : MonoBehaviour
 
 	public AudioClip bal_intro;
 
-	public AudioClip bal_screech;
+	public AudioClip ;
 
 	public AudioClip[] bal_numbers = new AudioClip[10];
 
@@ -75,7 +75,7 @@ public class MathGameScript : MonoBehaviour
 		"I HEAR EVERY DOOR YOU OPEN"
 	};
 
-	private string[] endlessHintText = new string[2]
+	private string[] HintText = new string[2]
 	{
 		"That's more like it...",
 		"Keep up the good work or see me after class..."
@@ -142,7 +142,7 @@ public class MathGameScript : MonoBehaviour
 		if (problem <= 3)
 		{
 			QueueAudio(bal_problems[problem - 1]);
-			if ((gc.mode == "story" & (problem <= 3 || gc.notebooks <= 7)) || (gc.mode == "endless" & (problem <= 2 || gc.notebooks != 2)))////problem 2, notebooks 1
+			if ((gc.mode == "story" & (problem <= 3 || gc.notebooks <= 7)) || (gc.mode == "" & (problem <= 2 || gc.notebooks != 2)))////problem 2, notebooks 1
             {
 				num1 = (float)Mathf.RoundToInt(Random.Range(0f, 9f));
 				this.num2 = (float)Mathf.RoundToInt(Random.Range(0f, 9f));
@@ -183,9 +183,9 @@ public class MathGameScript : MonoBehaviour
 				{
 					questionText.text = "SOLVE MATH Q" + problem + ": \n (" + num1 + "/" + this.num2 + ")+" + num3 + "=";
 					QueueAudio(bal_divided);
-					QueueAudio(bal_screech);
+					;
 					QueueAudio(bal_plus);
-					QueueAudio(bal_screech);
+					;
 				}
 				num1 = Random.Range(1f, 9999f);
 				this.num2 = Random.Range(1f, 9999f);
@@ -223,12 +223,12 @@ public class MathGameScript : MonoBehaviour
 			{
 				questionText.text = "WOW! YOU EXIST!";
 			}
-			else if (gc.mode == "endless" & problemsWrong <= 0)
+			else if (gc.mode == "story" & problemsWrong <= 0)
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
-				questionText.text = endlessHintText[num];
+				questionText.text = storyHintText[num];
 			}
-			else if (gc.mode == "story" & problemsWrong >= 3)
+			else if (gc.mode == "story" & problemsWrong >= )
 			{
 				questionText.text = "I HEAR MATH THAT GOOD";
 				questionText2.text = string.Empty;
@@ -262,10 +262,10 @@ public class MathGameScript : MonoBehaviour
             SceneManager.LoadScene("Secret");
             problemsWrong++;
 			results[problem - 1].texture = correct;
-			if (!gc.spoopMode)
+			if (!gc.happyMode)
 			{
 				baldiFeed.SetTrigger("happy");
-				gc.ActivateSpoopMode();
+				gc.ActivateHappyMode();
 			}
 			if (gc.mode == "story")
 			{
@@ -316,7 +316,7 @@ public class MathGameScript : MonoBehaviour
 
 	private void ExitGame()
 	{
-		if (problemsWrong <= 0 & gc.mode == "endless")
+		if (problemsWrong <= 0 & gc.mode == "story")
 		{
 			baldiScript.GetHappy(-1f);
 		}
