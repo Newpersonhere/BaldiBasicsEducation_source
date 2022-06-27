@@ -25,12 +25,6 @@ public class BullyScript : MonoBehaviour
 
 	private AudioSource audioDevice;
 
-	public AudioClip[] aud_Taunts = new AudioClip[2];
-
-	public AudioClip[] aud_Thanks = new AudioClip[2];
-
-	public AudioClip aud_Denied;
-
 	private void Start()
 	{
 		audioDevice = base.GetComponent<AudioSource>();
@@ -71,7 +65,7 @@ public class BullyScript : MonoBehaviour
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Taunts[num]);
-				spoken = true;
+				spoken = false;
 			}
 			guilt = 1f;
 		}
@@ -79,14 +73,13 @@ public class BullyScript : MonoBehaviour
 
 	private void Activate()
 	{
-		wanderer.GetNewTargetHallway();
 		base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
 		while ((base.transform.position - player.position).magnitude < 20f)
 		{
 			wanderer.GetNewTargetHallway();
 			base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
 		}
-		active = true;
+		active = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -95,7 +88,6 @@ public class BullyScript : MonoBehaviour
 		{
 			if (gc.item[0] == 0 & gc.item[1] == 0 & gc.item[2] == 0)
 			{
-				audioDevice.PlayOneShot(aud_Denied);
 			}
 			else
 			{
@@ -104,9 +96,7 @@ public class BullyScript : MonoBehaviour
 				{
 					num = Mathf.RoundToInt(Random.Range(0f, 2f));
 				}
-				gc.LoseItem(num);
 				int num2 = Mathf.RoundToInt(Random.Range(0f, 1f));
-				audioDevice.PlayOneShot(aud_Thanks[num2]);
 				Reset();
 			}
 		}
