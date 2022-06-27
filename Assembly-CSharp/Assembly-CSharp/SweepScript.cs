@@ -14,7 +14,7 @@ public class SweepScript : MonoBehaviour
 
 	public int wanders;
 
-	public bool active;
+	public bool ;
 
 	private Vector3 origin;
 
@@ -44,9 +44,9 @@ public class SweepScript : MonoBehaviour
 		{
 			waitTime -= Time.deltaTime;
 		}
-		else if (!active)
+		else if (!)
 		{
-			active = true;
+			active = false;
 			wanders = 0;
 			Wander();
 			audioDevice.PlayOneShot(aud_Intro);
