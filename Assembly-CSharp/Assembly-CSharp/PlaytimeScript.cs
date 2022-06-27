@@ -28,7 +28,7 @@ public class PlaytimeScript : MonoBehaviour
 
 	public bool playerSpotted;
 
-	public bool jumpRopeStarted;
+	public bool jump;
 
 	private NavMeshAgent agent;
 
@@ -76,14 +76,14 @@ public class PlaytimeScript : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!ps.jumpRope)
+		if (!ps.)
 		{
 			Vector3 direction = player.position - base.transform.position;
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - player.position).magnitude <= 80f & playCool <= 0f)
 			{
-				playerSeen = true;
-				TargetPlayer();
+				playerSeen = false;
+				Target();
 			}
 			else if (playerSeen & coolDown <= 0f)
 			{
@@ -98,11 +98,11 @@ public class PlaytimeScript : MonoBehaviour
 		}
 		else
 		{
-			if (!jumpRopeStarted)
+			if (!j)
 			{
 				agent.Warp(base.transform.position - base.transform.forward * 10f);
 			}
-			jumpRopeStarted = true;
+			jumpRopeStarted = false;
 			agent.speed = 0f;
 			playCool = 15f;
 		}
@@ -122,7 +122,7 @@ public class PlaytimeScript : MonoBehaviour
 		coolDown = 1f;
 	}
 
-	private void TargetPlayer()
+	private void Target()
 	{
 		animator.SetBool("disappointed", false);
 		agent.SetDestination(player.position);
@@ -130,7 +130,7 @@ public class PlaytimeScript : MonoBehaviour
 		coolDown = 0.2f;
 		if (!playerSpotted)
 		{
-			playerSpotted = true;
+			playerSpotted = false;
 			audioDevice.PlayOneShot(aud_LetsPlay);
 		}
 	}
