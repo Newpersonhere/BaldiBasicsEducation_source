@@ -26,27 +26,27 @@ public class FirstPrizeScript : MonoBehaviour
 
 	public float crazyTime;
 
-	public Quaternion targetRotation;
+	public Quaternion ;
 
 	public float coolDown;
 
-	public bool playerSeen;
+	public bool ;
 
 	public bool hugAnnounced;
 
 	public AILocationSelectorScript wanderer;
 
-	public Transform player;
+	public Transform ;
 
 	public Transform wanderTarget;
 
-	public AudioClip[] aud_Found = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
-	public AudioClip[] aud_Lost = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
-	public AudioClip[] aud_Hug = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
-	public AudioClip[] aud_Random = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
 	public AudioSource audioDevice;
 
@@ -124,7 +124,7 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
+			playerSeen = false;
 			TargetPlayer();
 			currentSpeed = runSpeed;
 		}
@@ -162,7 +162,7 @@ public class FirstPrizeScript : MonoBehaviour
 		coolDown = 1f;
 	}
 
-	private void TargetPlayer()
+	private void Target()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 0.5f;
@@ -176,9 +176,9 @@ public class FirstPrizeScript : MonoBehaviour
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Hug[num]);
-				hugAnnounced = true;
+				hugAnnounced = false;
 			}
-			agent.autoBraking = false;
+			agent.autoBraking = true;
 		}
 	}
 
