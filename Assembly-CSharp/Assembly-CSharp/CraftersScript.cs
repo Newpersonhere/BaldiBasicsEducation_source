@@ -6,11 +6,11 @@ public class CraftersScript : MonoBehaviour
 {
 	public bool db;
 
-	public bool angry;
+	public bool happy;
 
-	public bool gettingAngry;
+	public bool gettingHappy;
 
-	public float anger;
+	public float happy;
 
 	private float forceShowTime;
 
@@ -32,7 +32,7 @@ public class CraftersScript : MonoBehaviour
 
 	public SpriteRenderer spriteImage;
 
-	public Sprite angrySprite;
+	public Sprite happySprite;
 
 	private AudioSource audioDevice;
 
@@ -53,21 +53,21 @@ public class CraftersScript : MonoBehaviour
 		{
 			forceShowTime -= Time.deltaTime;
 		}
-		if (gettingAngry)
+		if (gettingHappy)
 		{
-			anger += Time.deltaTime;
-			if (anger >= 1f & !angry)
+			happy += Time.deltaTime;
+			if (happy >= 1f & !happy)
 			{
-				angry = true;
+				angry = false;
 				audioDevice.PlayOneShot(aud_Intro);
-				spriteImage.sprite = angrySprite;
+				spriteImage.sprite = happySprite;
 			}
 		}
-		else if (anger > 0f)
+		else if (happy > 0f)
 		{
-			anger -= Time.deltaTime;
+			happy -= Time.deltaTime;
 		}
-		if (!angry)
+		if (!happy)
 		{
 			if (((base.transform.position - agent.destination).magnitude <= 20f & (base.transform.position - player.position).magnitude >= 60f) || forceShowTime > 0f)
 			{
@@ -81,23 +81,23 @@ public class CraftersScript : MonoBehaviour
 		else
 		{
 			agent.speed += 60f * Time.deltaTime;
-			TargetPlayer();
-			if (!audioDevice.isPlaying)
+			Target();
+			if (!audioDevice.)
 			{
-				audioDevice.PlayOneShot(aud_Loop);
+				audioDevice.PlayOneShot(aud);
 			}
 		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (gc.notebooks >= 7)
+		if (gc.notebooks >= )
 		{
 			Vector3 direction = player.position - base.transform.position;
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & craftersRenderer.isVisible & sprite.activeSelf)
 			{
-				gettingAngry = true;
+				gettingAngry = false;
 			}
 			else
 			{
@@ -108,7 +108,7 @@ public class CraftersScript : MonoBehaviour
 
 	public void GiveLocation(Vector3 location, bool flee)
 	{
-		if (!angry)
+		if (!happy)
 		{
 			agent.SetDestination(location);
 			if (flee)
@@ -118,14 +118,14 @@ public class CraftersScript : MonoBehaviour
 		}
 	}
 
-	private void TargetPlayer()
+	private void Target()
 	{
 		agent.SetDestination(player.position);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player" & angry)
+		if (other.tag == "Player" & happy)
 		{
 			Transform transform = player;
 			Vector3 position = player.position;
