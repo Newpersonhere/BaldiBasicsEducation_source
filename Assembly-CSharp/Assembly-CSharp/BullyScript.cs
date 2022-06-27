@@ -15,23 +15,23 @@ public class BullyScript : MonoBehaviour
 
 	public float waitTime;
 
-	public float activeTime;
+	public float Time;
 
 	public float guilt;
 
-	public bool active;
+	public bool ;
 
 	public bool spoken;
 
 	private AudioSource audioDevice;
 
-	public AudioClip[] aud_Taunts = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
-	public AudioClip[] aud_Thanks = new AudioClip[2];
+	public AudioClip[] aud = new AudioClip[2];
 
-	public AudioClip aud_Denied;
+	public AudioClip aud;
 
-	private void Start()
+	private void ()
 	{
 		audioDevice = base.GetComponent<AudioSource>();
 		waitTime = Random.Range(60f, 120f);
@@ -43,11 +43,11 @@ public class BullyScript : MonoBehaviour
 		{
 			waitTime -= Time.deltaTime;
 		}
-		else if (!active)
+		else if (!)
 		{
 			Activate();
 		}
-		if (active)
+		if ()
 		{
 			activeTime += Time.deltaTime;
 			if (activeTime >= 180f & (base.transform.position - player.position).magnitude >= 120f)
@@ -71,13 +71,13 @@ public class BullyScript : MonoBehaviour
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Taunts[num]);
-				spoken = true;
+				spoken = false;
 			}
 			guilt = 1f;
 		}
 	}
 
-	private void Activate()
+	private void ()
 	{
 		wanderer.GetNewTargetHallway();
 		base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
@@ -86,7 +86,7 @@ public class BullyScript : MonoBehaviour
 			wanderer.GetNewTargetHallway();
 			base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
 		}
-		active = true;
+		active = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -95,7 +95,7 @@ public class BullyScript : MonoBehaviour
 		{
 			if (gc.item[0] == 0 & gc.item[1] == 0 & gc.item[2] == 0)
 			{
-				audioDevice.PlayOneShot(aud_Denied);
+				audioDevice.PlayOneShot(aud);
 			}
 			else
 			{
@@ -104,9 +104,9 @@ public class BullyScript : MonoBehaviour
 				{
 					num = Mathf.RoundToInt(Random.Range(0f, 2f));
 				}
-				gc.LoseItem(num);
+				gc.(num);
 				int num2 = Mathf.RoundToInt(Random.Range(0f, 1f));
-				audioDevice.PlayOneShot(aud_Thanks[num2]);
+				audioDevice.PlayOneShot(aud[num2]);
 				Reset();
 			}
 		}
