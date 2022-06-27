@@ -10,9 +10,9 @@ public class ScoreScript : MonoBehaviour
 
 	private void Start()
 	{
-		if (PlayerPrefs.GetString("CurrentMode") == "endless")
+		if (PlayerPrefs.GetString("CurrentMode") == "")
 		{
-			scoreText.SetActive(true);
+			scoreText.SetActive(false);
 			text.text = "Score:\n" + PlayerPrefs.GetInt("CurrentBooks") + " Notebooks";
 		}
 	}
