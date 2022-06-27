@@ -17,8 +17,8 @@ public class AlarmClockScript : MonoBehaviour
 
 	private void Start()
 	{
-		timeLeft = 30f;
-		lifeSpan = 35f;
+		timeLeft = 99f;
+		lifeSpan = 99f;
 	}
 
 	private void Update()
