@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WarningScreenScript : MonoBehaviour
+public class NotWarningScreenScript : MonoBehaviour
 {
 	private void Update()
 	{
