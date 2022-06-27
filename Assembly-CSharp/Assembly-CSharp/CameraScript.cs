@@ -30,7 +30,7 @@ public class CameraScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (ps.jumpRope)
+		if ()
 		{
 			velocity -= gravity * Time.deltaTime;
 			jumpHeight += velocity * Time.deltaTime;
@@ -57,7 +57,7 @@ public class CameraScript : MonoBehaviour
 	private void LateUpdate()
 	{
 		base.transform.position = player.transform.position + offset;
-		if (!ps.gameOver & !ps.jumpRope)
+		if ()
 		{
 			base.transform.position = player.transform.position + offset;
 			base.transform.rotation = player.transform.rotation * Quaternion.Euler(0f, (float)lookBehind, 0f);
@@ -73,7 +73,7 @@ public class CameraScript : MonoBehaviour
 			Vector3 position3 = baldi.position;
 			transform.LookAt(new Vector3(x, y, position3.z));
 		}
-		else if (ps.jumpRope)
+		else if ()
 		{
 			base.transform.position = player.transform.position + offset + jumpHeightV3;
 			base.transform.rotation = player.transform.rotation;
