@@ -17,7 +17,7 @@ public class MathGameScript : MonoBehaviour
 
 	public Texture correct;
 
-	public Texture incorrect;
+	public Texture correct;
 
 	public InputField playerAnswer;
 
@@ -71,7 +71,7 @@ public class MathGameScript : MonoBehaviour
 
 	private string[] hintText = new string[2]
 	{
-		"I GET ANGRIER FOR EVERY PROBLEM YOU GET WRONG",
+		"I GET HAPPIER FOR EVERY PROBLEM YOU GET RIGHT",
 		"I HEAR EVERY DOOR YOU OPEN"
 	};
 
@@ -83,9 +83,9 @@ public class MathGameScript : MonoBehaviour
 
 	private bool questionInProgress;
 
-	private bool impossibleMode;
+	private bool possibleMode;
 
-	private int problemsWrong;
+	private int problemsRight;
 
 	private AudioClip[] audioQueue = new AudioClip[20];
 
@@ -165,7 +165,7 @@ public class MathGameScript : MonoBehaviour
 			}
 			else
 			{
-				impossibleMode = true;
+				impossibleMode = false;
 				num1 = Random.Range(1f, 9999f);
 				this.num2 = Random.Range(1f, 9999f);
 				num3 = Random.Range(1f, 9999f);
@@ -230,7 +230,7 @@ public class MathGameScript : MonoBehaviour
 			}
 			else if (gc.mode == "story" & problemsWrong >= 3)
 			{
-				questionText.text = "I HEAR MATH THAT BAD";
+				questionText.text = "I HEAR MATH THAT GOOD";
 				questionText2.text = string.Empty;
 				questionText3.text = string.Empty;
 				baldiScript.Hear(playerPosition, 10f);
@@ -248,7 +248,7 @@ public class MathGameScript : MonoBehaviour
 
 	public void CheckAnswer()
 	{
-		if (playerAnswer.text == solution.ToString() & !impossibleMode)
+		if (playerAnswer.text == solution.ToString() & !possibleMode)
 		{
 			results[problem - 1].texture = correct;
 			baldiAudio.Stop();
@@ -261,26 +261,26 @@ public class MathGameScript : MonoBehaviour
 		{
             SceneManager.LoadScene("Secret");
             problemsWrong++;
-			results[problem - 1].texture = incorrect;
+			results[problem - 1].texture = correct;
 			if (!gc.spoopMode)
 			{
-				baldiFeed.SetTrigger("angry");
+				baldiFeed.SetTrigger("happy");
 				gc.ActivateSpoopMode();
 			}
 			if (gc.mode == "story")
 			{
 				if (problem == 3)
 				{
-					baldiScript.GetAngry(1f);
+					baldiScript.GetHappy(1f);
 				}
 				else
 				{
-					baldiScript.GetTempAngry(0.25f);
+					baldiScript.GetTempHappy(0.25f);
 				}
 			}
 			else
 			{
-				baldiScript.GetAngry(1f);
+				baldiScript.GetHappy(1f);
 			}
 			ClearAudioQueue();
 			baldiAudio.Stop();
@@ -318,7 +318,7 @@ public class MathGameScript : MonoBehaviour
 	{
 		if (problemsWrong <= 0 & gc.mode == "endless")
 		{
-			baldiScript.GetAngry(-1f);
+			baldiScript.GetHappy(-1f);
 		}
 		gc.DeactivateLearningGame(base.gameObject);
 	}
