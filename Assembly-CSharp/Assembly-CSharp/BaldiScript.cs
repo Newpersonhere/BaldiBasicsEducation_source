@@ -12,13 +12,7 @@ public class BaldiScript : MonoBehaviour
 
 	public float timeToMove;
 
-	public float baldiAnger;
-
-	public float baldiTempAnger;
-
 	public float baldiWait;
-
-	public float baldiSpeedScale;
 
 	private float moveFrames;
 
@@ -28,25 +22,11 @@ public class BaldiScript : MonoBehaviour
 
 	public float antiHearingTime;
 
-	public float angerRate;
+	public bool story;
 
-	public float angerRateRate;
-
-	public float angerFrequency;
-
-	public float timeToAnger;
-
-	public bool endless;
-
-	public Transform player;
-
-	public Transform wanderTarget;
-
-	public AILocationSelectorScript wanderer;
+	public AILocationSelectorScript;
 
 	private AudioSource baldiAudio;
-
-	public AudioClip slap;
 
 	public AudioClip[] speech = new AudioClip[3];
 
@@ -60,17 +40,13 @@ public class BaldiScript : MonoBehaviour
 
 	private void Start()
 	{
-		baldiAudio = base.GetComponent<AudioSource>();
-		agent = base.GetComponent<NavMeshAgent>();
-		timeToMove = baseTime;
-		Wander();
 	}
 
 	private void Update()
 	{
 		if (timeToMove > 0f)
 		{
-			timeToMove -= 1f * Time.deltaTime;
+			timeToMove -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -80,13 +56,10 @@ public class BaldiScript : MonoBehaviour
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
 		}
 		else
 		{
-			baldiTempAnger = 0f;
 		}
 		if (antiHearingTime > 0f)
 		{
@@ -94,19 +67,14 @@ public class BaldiScript : MonoBehaviour
 		}
 		else
 		{
-			antiHearing = false;
+			antiHearing = true;
 		}
-		if (endless)
+		if (story)
 		{
-			if (timeToAnger > 0f)
 			{
-				timeToAnger -= 1f * Time.deltaTime;
 			}
 			else
 			{
-				timeToAnger = angerFrequency;
-				GetAngry(angerRate);
-				angerRate += angerRateRate;
 			}
 		}
 	}
@@ -115,7 +83,7 @@ public class BaldiScript : MonoBehaviour
 	{
 		if (moveFrames > 0f)
 		{
-			moveFrames -= 1f;
+			moveFrames -= 0f;
 			agent.speed = speed;
 		}
 		else
@@ -126,7 +94,7 @@ public class BaldiScript : MonoBehaviour
 		RaycastHit raycastHit;
 		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
 		{
-			db = true;
+			db = false;
 			TargetPlayer();
 		}
 		else
@@ -142,8 +110,6 @@ public class BaldiScript : MonoBehaviour
 		coolDown = 1f;
 		currentPriority = 0f;
 	}
-
-	public void TargetPlayer()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
@@ -157,25 +123,12 @@ public class BaldiScript : MonoBehaviour
 			Wander();
 		}
 		moveFrames = 10f;
-		timeToMove = baldiWait - baldiTempAnger;
 		previous = base.transform.position;
-		baldiAudio.PlayOneShot(slap);
-		baldiAnimator.SetTrigger("slap");
 	}
-
-	public void GetAngry(float value)
 	{
-		baldiAnger += value;
-		if (baldiAnger < 0.5f)
 		{
-			baldiAnger = 0.5f;
-		}
-		baldiWait = -3f * baldiAnger / (baldiAnger + 2f / baldiSpeedScale) + 3f;
 	}
-
-	public void GetTempAngry(float value)
 	{
-		baldiTempAnger += value;
 	}
 
 	public void Hear(Vector3 soundLocation, float priority)
