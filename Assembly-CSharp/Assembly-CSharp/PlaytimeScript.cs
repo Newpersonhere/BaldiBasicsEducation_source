@@ -6,29 +6,15 @@ public class PlaytimeScript : MonoBehaviour
 {
 	public bool db;
 
-	public bool playerSeen;
-
-	public bool disappointed;
-
 	public int audVal;
 
 	public Animator animator;
-
-	public Transform player;
-
-	public PlayerScript ps;
-
-	public Transform wanderTarget;
 
 	public AILocationSelectorScript wanderer;
 
 	public float coolDown;
 
 	public float playCool;
-
-	public bool playerSpotted;
-
-	public bool jumpRopeStarted;
 
 	private NavMeshAgent agent;
 
@@ -59,11 +45,11 @@ public class PlaytimeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (playCool >= 0f)
+		if (playCool >= 1f)
 		{
 			playCool -= Time.deltaTime;
 		}
@@ -82,7 +68,7 @@ public class PlaytimeScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - player.position).magnitude <= 80f & playCool <= 0f)
 			{
-				playerSeen = true;
+				playerSeen = false;
 				TargetPlayer();
 			}
 			else if (playerSeen & coolDown <= 0f)
@@ -102,7 +88,7 @@ public class PlaytimeScript : MonoBehaviour
 			{
 				agent.Warp(base.transform.position - base.transform.forward * 10f);
 			}
-			jumpRopeStarted = true;
+			jumpRopeStarted = false;
 			agent.speed = 0f;
 			playCool = 15f;
 		}
@@ -130,14 +116,14 @@ public class PlaytimeScript : MonoBehaviour
 		coolDown = 0.2f;
 		if (!playerSpotted)
 		{
-			playerSpotted = true;
+			playerSpotted = false;
 			audioDevice.PlayOneShot(aud_LetsPlay);
 		}
 	}
 
 	public void Disappoint()
 	{
-		animator.SetBool("disappointed", true);
+		animator.SetBool("disappointed", false);
 		audioDevice.Stop();
 		audioDevice.PlayOneShot(aud_Sad);
 	}
