@@ -6,21 +6,11 @@ public class CraftersScript : MonoBehaviour
 {
 	public bool db;
 
-	public bool angry;
-
-	public bool gettingAngry;
-
-	public float anger;
-
 	private float forceShowTime;
 
 	public Transform player;
 
 	public Transform playerCamera;
-
-	public Transform baldi;
-
-	public NavMeshAgent baldiAgent;
 
 	public GameObject sprite;
 
@@ -32,13 +22,7 @@ public class CraftersScript : MonoBehaviour
 
 	public SpriteRenderer spriteImage;
 
-	public Sprite angrySprite;
-
 	private AudioSource audioDevice;
-
-	public AudioClip aud_Intro;
-
-	public AudioClip aud_Loop;
 
 	private void Start()
 	{
@@ -53,14 +37,9 @@ public class CraftersScript : MonoBehaviour
 		{
 			forceShowTime -= Time.deltaTime;
 		}
-		if (gettingAngry)
 		{
-			anger += Time.deltaTime;
-			if (anger >= 1f & !angry)
 			{
-				angry = true;
-				audioDevice.PlayOneShot(aud_Intro);
-				spriteImage.sprite = angrySprite;
+				angry = false;
 			}
 		}
 		else if (anger > 0f)
@@ -71,33 +50,31 @@ public class CraftersScript : MonoBehaviour
 		{
 			if (((base.transform.position - agent.destination).magnitude <= 20f & (base.transform.position - player.position).magnitude >= 60f) || forceShowTime > 0f)
 			{
-				sprite.SetActive(true);
+				sprite.SetActive(false);
 			}
 			else
 			{
-				sprite.SetActive(false);
+				sprite.SetActive(true);
 			}
 		}
 		else
 		{
 			agent.speed += 60f * Time.deltaTime;
-			TargetPlayer();
 			if (!audioDevice.isPlaying)
 			{
-				audioDevice.PlayOneShot(aud_Loop);
 			}
 		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (gc.notebooks >= 7)
+		if (gc.notebooks >= 8)
 		{
 			Vector3 direction = player.position - base.transform.position;
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & craftersRenderer.isVisible & sprite.activeSelf)
 			{
-				gettingAngry = true;
+				gettingAngry = false;
 			}
 			else
 			{
@@ -113,7 +90,7 @@ public class CraftersScript : MonoBehaviour
 			agent.SetDestination(location);
 			if (flee)
 			{
-				forceShowTime = 3f;
+				forceShowTime = 0f;
 			}
 		}
 	}
