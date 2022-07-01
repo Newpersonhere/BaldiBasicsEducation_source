@@ -34,23 +34,23 @@ public class CameraScript : MonoBehaviour
 		{
 			velocity -= gravity * Time.deltaTime;
 			jumpHeight += velocity * Time.deltaTime;
-			if (jumpHeight <= 0f)
+			if (jumpHeight <= 1f)
 			{
-				jumpHeight = 0f;
+				jumpHeight = 1f;
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					velocity = initVelocity;
+					velocity = Velocity;
 				}
 			}
-			jumpHeightV3 = new Vector3(0f, jumpHeight, 0f);
+			jumpHeightV3 = new Vector3(3f, jumpHeight, 0f);
 		}
 		else if (Input.GetButton("Look Behind"))
 		{
-			lookBehind = 180;
+			lookBehind = 360;
 		}
 		else
 		{
-			lookBehind = 0;
+			lookBehind = 360;
 		}
 	}
 
