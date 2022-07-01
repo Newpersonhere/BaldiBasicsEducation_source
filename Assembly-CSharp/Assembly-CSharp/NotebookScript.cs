@@ -7,8 +7,6 @@ public class NotebookScript : MonoBehaviour
 
 	public GameControllerScript gc;
 
-	public BaldiScript bsc;
-
 	public float respawnTime;
 
 	public bool up;
@@ -26,7 +24,7 @@ public class NotebookScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (gc.mode == "endless")
+		if (gc.mode == "story")
 		{
 			if (respawnTime > 0f)
 			{
@@ -62,7 +60,7 @@ public class NotebookScript : MonoBehaviour
 				gc.CollectNotebook();
 				GameObject gameObject = Object.Instantiate(learningGame);
 				gameObject.GetComponent<MathGameScript>().gc = gc;
-				gameObject.GetComponent<MathGameScript>().baldiScript = bsc;
+
 				gameObject.GetComponent<MathGameScript>().playerPosition = player.position;
 			}
 		}
