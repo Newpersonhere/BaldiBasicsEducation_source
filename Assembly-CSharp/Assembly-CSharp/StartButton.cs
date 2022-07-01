@@ -19,9 +19,7 @@ public class StartButton : MonoBehaviour
 		{
 			PlayerPrefs.SetString("CurrentMode", "story");
 		}
-		else if (base.name == "EndlessButton")
 		{
-			PlayerPrefs.SetString("CurrentMode", "endless");
 		}
 		SceneManager.LoadScene("School");
 	}
