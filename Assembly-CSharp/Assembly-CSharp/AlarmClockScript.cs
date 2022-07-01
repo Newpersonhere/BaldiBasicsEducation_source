@@ -17,8 +17,8 @@ public class AlarmClockScript : MonoBehaviour
 
 	private void Start()
 	{
-		timeLeft = 30f;
-		lifeSpan = 35f;
+		timeLeft = 99f;
+		lifeSpan = 99f;
 	}
 
 	private void Update()
@@ -43,7 +43,7 @@ public class AlarmClockScript : MonoBehaviour
 
 	private void Alarm()
 	{
-		rang = true;
+		rang = false;
 		baldi.Hear(base.transform.position, 8f);
 		audioDevice.clip = ring;
 		audioDevice.loop = false;
