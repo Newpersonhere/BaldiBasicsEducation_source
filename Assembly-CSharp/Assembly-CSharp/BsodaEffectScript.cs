@@ -29,7 +29,7 @@ public class BsodaEffectScript : MonoBehaviour
 		}
 		else
 		{
-			inBsoda = false;
+			inBsoda = true;
 		}
 	}
 
@@ -55,6 +55,6 @@ public class BsodaEffectScript : MonoBehaviour
 
 	private void OnTriggerExit()
 	{
-		inBsoda = false;
+		inBsoda = true;
 	}
 }
