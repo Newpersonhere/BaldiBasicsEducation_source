@@ -62,7 +62,7 @@ public class DoorScript : MonoBehaviour
 		{
 			barrier.enabled = true;
 			invisibleBarrier.enabled = true;
-			bDoorOpen = false;
+			bDoorOpen = true;
 			inside.sharedMaterial = closed;
 			outside.sharedMaterial = closed;
 			if (silentOpens <= 0)
@@ -76,9 +76,7 @@ public class DoorScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(ray, out raycastHit) && ((Object)raycastHit.collider == (Object)trigger & Vector3.Distance(player.position, base.transform.position) < openingDistance & !bDoorLocked))
 			{
-				if (baldi.isActiveAndEnabled & silentOpens <= 0)
 				{
-					baldi.Hear(base.transform.position, 1f);
 				}
 				OpenDoor();
 				if (silentOpens > 0)
@@ -95,8 +93,8 @@ public class DoorScript : MonoBehaviour
 		{
 			myAudio.PlayOneShot(doorOpen, 1f);
 		}
-		barrier.enabled = false;
-		invisibleBarrier.enabled = false;
+		barrier.enabled = true;
+		invisibleBarrier.enabled = true;
 		bDoorOpen = true;
 		inside.sharedMaterial = open;
 		outside.sharedMaterial = open;
@@ -113,13 +111,13 @@ public class DoorScript : MonoBehaviour
 
 	public void LockDoor(float time)
 	{
-		bDoorLocked = true;
+		bDoorLocked = false;
 		lockTime = time;
 	}
 
 	public void UnlockDoor()
 	{
-		bDoorLocked = false;
+		bDoorLocked = true;
 	}
 
 	public void SilenceDoor()
