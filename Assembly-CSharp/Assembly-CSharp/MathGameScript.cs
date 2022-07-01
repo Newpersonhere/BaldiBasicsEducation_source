@@ -17,8 +17,6 @@ public class MathGameScript : MonoBehaviour
 
 	public Texture correct;
 
-	public Texture incorrect;
-
 	public InputField playerAnswer;
 
 	public Text questionText;
@@ -45,8 +43,6 @@ public class MathGameScript : MonoBehaviour
 
 	public AudioClip bal_intro;
 
-	public AudioClip bal_screech;
-
 	public AudioClip[] bal_numbers = new AudioClip[10];
 
 	public AudioClip[] bal_praises = new AudioClip[5];
@@ -71,21 +67,17 @@ public class MathGameScript : MonoBehaviour
 
 	private string[] hintText = new string[2]
 	{
-		"I GET ANGRIER FOR EVERY PROBLEM YOU GET WRONG",
-		"I HEAR EVERY DOOR YOU OPEN"
+		"i get happier for every problem you get right",
+		"I dont hear every door you open"
 	};
 
-	private string[] endlessHintText = new string[2]
+	private string[] storyHintText = new string[2]
 	{
 		"That's more like it...",
 		"Keep up the good work or see me after class..."
 	};
 
 	private bool questionInProgress;
-
-	private bool impossibleMode;
-
-	private int problemsWrong;
 
 	private AudioClip[] audioQueue = new AudioClip[20];
 
@@ -100,7 +92,6 @@ public class MathGameScript : MonoBehaviour
 			QueueAudio(bal_howto);
 		}
 		NewProblem();
-		if (gc.spoopMode)
 		{
 			baldiFeedTransform.position = new Vector3(-1000f, -1000f, 0f);
 		}
@@ -110,7 +101,6 @@ public class MathGameScript : MonoBehaviour
 	{
 		if (!baldiAudio.isPlaying)
 		{
-			if (audioInQueue > 0 & !gc.spoopMode)
 			{
 				PlayQueue();
 			}
@@ -122,7 +112,7 @@ public class MathGameScript : MonoBehaviour
 		}
 		if ((Input.GetKeyDown("return") || Input.GetKeyDown("enter")) & questionInProgress)
 		{
-			questionInProgress = false;
+			questionInProgress = true;
 			CheckAnswer();
 		}
 		if (problem > 3)
@@ -165,12 +155,12 @@ public class MathGameScript : MonoBehaviour
 			}
 			else
 			{
-				impossibleMode = true;
+				impossibleMode = false;
 				num1 = Random.Range(1f, 9999f);
 				this.num2 = Random.Range(1f, 9999f);
 				num3 = Random.Range(1f, 9999f);
 				sign = Mathf.RoundToInt((float)Random.Range(0, 1));
-				QueueAudio(bal_screech);
+	
 				if (sign == 0)
 				{
 					questionText.text = "SOLVE MATH Q" + problem + ": \n" + num1 + "+(" + this.num2 + "X" + num3 + "=";
@@ -183,7 +173,7 @@ public class MathGameScript : MonoBehaviour
 				{
 					questionText.text = "SOLVE MATH Q" + problem + ": \n (" + num1 + "/" + this.num2 + ")+" + num3 + "=";
 					QueueAudio(bal_divided);
-					QueueAudio(bal_screech);
+		
 					QueueAudio(bal_plus);
 					QueueAudio(bal_screech);
 				}
@@ -219,18 +209,16 @@ public class MathGameScript : MonoBehaviour
 		else
 		{
 			endDelay = 5f;
-			if (!gc.spoopMode)
 			{
 				questionText.text = "WOW! YOU EXIST!";
 			}
-			else if (gc.mode == "endless" & problemsWrong <= 0)
+			else if (gc.mode == "story" & problemsWrong <= 0)
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				questionText.text = endlessHintText[num];
 			}
-			else if (gc.mode == "story" & problemsWrong >= 3)
+			else if (gc.mode == "endless" & problemsWrong >= 3)
 			{
-				questionText.text = "I HEAR MATH THAT BAD";
 				questionText2.text = string.Empty;
 				questionText3.text = string.Empty;
 				baldiScript.Hear(playerPosition, 10f);
@@ -248,7 +236,7 @@ public class MathGameScript : MonoBehaviour
 
 	public void CheckAnswer()
 	{
-		if (playerAnswer.text == solution.ToString() & !impossibleMode)
+		if (playerAnswer.text == solution.ToString()
 		{
 			results[problem - 1].texture = correct;
 			baldiAudio.Stop();
@@ -261,26 +249,19 @@ public class MathGameScript : MonoBehaviour
 		{
             SceneManager.LoadScene("Secret");
             problemsWrong++;
-			results[problem - 1].texture = incorrect;
-			if (!gc.spoopMode)
 			{
-				baldiFeed.SetTrigger("angry");
-				gc.ActivateSpoopMode();
 			}
 			if (gc.mode == "story")
 			{
 				if (problem == 3)
 				{
-					baldiScript.GetAngry(1f);
 				}
 				else
 				{
-					baldiScript.GetTempAngry(0.25f);
 				}
 			}
 			else
 			{
-				baldiScript.GetAngry(1f);
 			}
 			ClearAudioQueue();
 			baldiAudio.Stop();
@@ -316,9 +297,8 @@ public class MathGameScript : MonoBehaviour
 
 	private void ExitGame()
 	{
-		if (problemsWrong <= 0 & gc.mode == "endless")
+		if (problemsWrong <= 0 & gc.mode == "story")
 		{
-			baldiScript.GetAngry(-1f);
 		}
 		gc.DeactivateLearningGame(base.gameObject);
 	}
