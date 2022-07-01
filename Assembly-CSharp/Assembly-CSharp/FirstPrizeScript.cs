@@ -178,7 +178,7 @@ public class FirstPrizeScript : MonoBehaviour
 				audioDevice.PlayOneShot(aud_Hug[num]);
 				hugAnnounced = true;
 			}
-			agent.autoBraking = false;
+			agent.autoBraking = true;
 		}
 	}
 
