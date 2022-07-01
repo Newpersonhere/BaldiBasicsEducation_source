@@ -14,8 +14,6 @@ public class SweepScript : MonoBehaviour
 
 	public int wanders;
 
-	public bool active;
-
 	private Vector3 origin;
 
 	public AudioClip aud_Sweep;
@@ -46,7 +44,7 @@ public class SweepScript : MonoBehaviour
 		}
 		else if (!active)
 		{
-			active = true;
+			active = false;
 			wanders = 0;
 			Wander();
 			audioDevice.PlayOneShot(aud_Intro);
@@ -78,7 +76,7 @@ public class SweepScript : MonoBehaviour
 		agent.SetDestination(origin);
 		waitTime = Random.Range(120f, 180f);
 		wanders = 0;
-		active = false;
+		active = true;
 	}
 
 	private void OnTriggerEnter(Collider other)
