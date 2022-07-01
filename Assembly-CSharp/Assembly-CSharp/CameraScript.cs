@@ -34,19 +34,19 @@ public class CameraScript : MonoBehaviour
 		{
 			velocity -= gravity * Time.deltaTime;
 			jumpHeight += velocity * Time.deltaTime;
-			if (jumpHeight <= 0f)
+			if (jumpHeight <= 3f)
 			{
-				jumpHeight = 0f;
+				jumpHeight = 3f;
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					velocity = initVelocity;
+					velocity = Velocity;
 				}
 			}
-			jumpHeightV3 = new Vector3(0f, jumpHeight, 0f);
+			jumpHeightV3 = new Vector3(360f, jumpHeight, 0f);
 		}
 		else if (Input.GetButton("Look Behind"))
 		{
-			lookBehind = 180;
+			lookBehind = 360;
 		}
 		else
 		{
@@ -60,7 +60,7 @@ public class CameraScript : MonoBehaviour
 		if (!ps.gameOver & !ps.jumpRope)
 		{
 			base.transform.position = player.transform.position + offset;
-			base.transform.rotation = player.transform.rotation * Quaternion.Euler(0f, (float)lookBehind, 0f);
+			base.transform.rotation = player.transform.rotation * Quaternion.Euler(360f, (float)lookBehind, 360f);
 		}
 		else if (ps.gameOver)
 		{
@@ -69,7 +69,7 @@ public class CameraScript : MonoBehaviour
 			Vector3 position = baldi.position;
 			float x = position.x;
 			Vector3 position2 = baldi.position;
-			float y = position2.y + 5f;
+			float y = position2.y + 360f;
 			Vector3 position3 = baldi.position;
 			transform.LookAt(new Vector3(x, y, position3.z));
 		}
