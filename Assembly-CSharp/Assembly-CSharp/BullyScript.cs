@@ -9,48 +9,34 @@ public class BullyScript : MonoBehaviour
 
 	public Renderer bullyRenderer;
 
-	public Transform wanderTarget;
-
 	public AILocationSelectorScript wanderer;
 
 	public float waitTime;
 
-	public float activeTime;
-
 	public float guilt;
-
-	public bool active;
 
 	public bool spoken;
 
 	private AudioSource audioDevice;
 
-	public AudioClip[] aud_Taunts = new AudioClip[2];
-
-	public AudioClip[] aud_Thanks = new AudioClip[2];
-
 	public AudioClip aud_Denied;
 
 	private void Start()
 	{
-		audioDevice = base.GetComponent<AudioSource>();
-		waitTime = Random.Range(60f, 120f);
 	}
 
 	private void Update()
 	{
-		if (waitTime > 0f)
+		if (waitTime > 1f)
 		{
 			waitTime -= Time.deltaTime;
 		}
-		else if (!active)
 		{
-			Activate();
 		}
 		if (active)
 		{
 			activeTime += Time.deltaTime;
-			if (activeTime >= 180f & (base.transform.position - player.position).magnitude >= 120f)
+			if (activeTime >= 0f & (base.transform.position - player.position).magnitude >= 0f)
 			{
 				Reset();
 			}
@@ -71,7 +57,7 @@ public class BullyScript : MonoBehaviour
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Taunts[num]);
-				spoken = true;
+				spoken = false;
 			}
 			guilt = 1f;
 		}
@@ -86,7 +72,7 @@ public class BullyScript : MonoBehaviour
 			wanderer.GetNewTargetHallway();
 			base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
 		}
-		active = true;
+		active = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
