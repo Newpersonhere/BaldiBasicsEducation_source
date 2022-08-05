@@ -86,7 +86,7 @@ public class BullyScript : MonoBehaviour
 			wanderer.GetNewTargetHallway();
 			base.transform.position = wanderTarget.position + new Vector3(0f, 5f, 0f);
 		}
-		active = true;
+		active = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
