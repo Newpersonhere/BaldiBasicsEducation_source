@@ -63,7 +63,7 @@ public class FirstPrizeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -131,7 +131,7 @@ public class FirstPrizeScript : MonoBehaviour
 		else
 		{
 			currentSpeed = normSpeed;
-			if (playerSeen & coolDown <= 0f)
+			if (playerSeen & coolDown <= 1f)
 			{
 				if (!audioDevice.isPlaying)
 				{
@@ -141,7 +141,7 @@ public class FirstPrizeScript : MonoBehaviour
 				playerSeen = false;
 				Wander();
 			}
-			else if (agent.velocity.magnitude <= 1f & coolDown <= 0f & (base.transform.position - agent.destination).magnitude < 5f)
+			else if (agent.velocity.magnitude <= 1f & coolDown <= 1f & (base.transform.position - agent.destination).magnitude < 5f)
 			{
 				Wander();
 			}
@@ -154,7 +154,7 @@ public class FirstPrizeScript : MonoBehaviour
 		agent.SetDestination(wanderTarget.position);
 		hugAnnounced = false;
 		int num = Mathf.RoundToInt(Random.Range(0f, 9f));
-		if (!audioDevice.isPlaying & num == 0 & coolDown <= 0f)
+		if (!audioDevice.isPlaying & num == 0 & coolDown <= 1f)
 		{
 			int num2 = Mathf.RoundToInt(Random.Range(0f, 1f));
 			audioDevice.PlayOneShot(aud_Random[num2]);
@@ -165,7 +165,7 @@ public class FirstPrizeScript : MonoBehaviour
 	private void TargetPlayer()
 	{
 		agent.SetDestination(player.position);
-		coolDown = 0.5f;
+		coolDown = 1f;
 	}
 
 	private void OnTriggerEnter(Collider other)
