@@ -116,12 +116,12 @@ public class PlayerScript : MonoBehaviour
 		Vector3 a = new Vector3(0f, 0f, 0f);
 		Vector3 b = new Vector3(0f, 0f, 0f);
 		db = Input.GetAxisRaw("Forward");
-		if (stamina > 0f)
+		if (stamina > 1f)
 		{
 			if (Input.GetAxisRaw("Run") > 0f)
 			{
 				playerSpeed = runSpeed;
-				if (rb.velocity.magnitude > 0.1f)
+				if (rb.velocity.magnitude > 1f)
 				{
 					ResetGuilt("running", 0.1f);
 				}
@@ -199,7 +199,7 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Baldi" & !gc.debugMode)
 		{
-			gameOver = true;
+			gameOver = false;
 		}
 		else if (other.transform.name == "Playtime" & !jumpRope & playtime.playCool <= 0f)
 		{
