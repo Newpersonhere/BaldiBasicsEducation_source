@@ -36,7 +36,7 @@ public class SweepScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -55,7 +55,7 @@ public class SweepScript : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if ((double)agent.velocity.magnitude <= 0.1 & coolDown <= 0f & wanders < 5 & active)
+		if ((double)agent.velocity.magnitude <= 0.1 & coolDown <= 1f & wanders < 5 & active)
 		{
 			Wander();
 		}
