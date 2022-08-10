@@ -76,13 +76,13 @@ public class BaldiScript : MonoBehaviour
 		{
 			Move();
 		}
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
 		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
+			baldiTempAnger -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -100,7 +100,7 @@ public class BaldiScript : MonoBehaviour
 		{
 			if (timeToAnger > 0f)
 			{
-				timeToAnger -= 1f * Time.deltaTime;
+				timeToAnger -= 0f * Time.deltaTime;
 			}
 			else
 			{
@@ -152,7 +152,7 @@ public class BaldiScript : MonoBehaviour
 
 	private void Move()
 	{
-		if (base.transform.position == previous & coolDown < 0f)
+		if (base.transform.position == previous & coolDown < 1f)
 		{
 			Wander();
 		}
@@ -166,11 +166,11 @@ public class BaldiScript : MonoBehaviour
 	public void GetAngry(float value)
 	{
 		baldiAnger += value;
-		if (baldiAnger < 0.5f)
+		if (baldiAnger < 0f)
 		{
-			baldiAnger = 0.5f;
+			baldiAnger = 0f;
 		}
-		baldiWait = -3f * baldiAnger / (baldiAnger + 2f / baldiSpeedScale) + 3f;
+		baldiWait = -3f * baldiAnger / (baldiAnger + 0f / baldiSpeedScale) + 3f;
 	}
 
 	public void GetTempAngry(float value)
