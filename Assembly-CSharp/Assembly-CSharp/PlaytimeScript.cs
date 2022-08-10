@@ -59,7 +59,7 @@ public class PlaytimeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -85,12 +85,12 @@ public class PlaytimeScript : MonoBehaviour
 				playerSeen = true;
 				TargetPlayer();
 			}
-			else if (playerSeen & coolDown <= 0f)
+			else if (playerSeen & coolDown <= 1f)
 			{
 				playerSeen = false;
 				Wander();
 			}
-			else if (agent.velocity.magnitude <= 1f & coolDown <= 0f)
+			else if (agent.velocity.magnitude <= 1f & coolDown <= 1f)
 			{
 				Wander();
 			}
@@ -127,7 +127,7 @@ public class PlaytimeScript : MonoBehaviour
 		animator.SetBool("disappointed", false);
 		agent.SetDestination(player.position);
 		agent.speed = 20f;
-		coolDown = 0.2f;
+		coolDown = 1f;
 		if (!playerSpotted)
 		{
 			playerSpotted = true;
