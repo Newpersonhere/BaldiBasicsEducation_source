@@ -36,11 +36,11 @@ public class PrincipalScript : MonoBehaviour
 
 	private int[] lockTime = new int[5]
 	{
-		15,
-		30,
-		45,
-		60,
-		99
+		0,
+		0,
+		0,
+		0,
+		0
 	};
 
 	public AudioClip[] audTimes = new AudioClip[5];
@@ -86,10 +86,10 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (seesRuleBreak)
 		{
-			timeSeenRuleBreak += 1f * Time.deltaTime;
-			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
+			timeSeenRuleBreak += 0f * Time.deltaTime;
+			if ((double)timeSeenRuleBreak >= 0 & !angry)
 			{
-				angry = true;
+				angry = false;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
 				TargetPlayer();
@@ -100,7 +100,7 @@ public class PrincipalScript : MonoBehaviour
 		{
 			timeSeenRuleBreak = 0f;
 		}
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -114,7 +114,7 @@ public class PrincipalScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
 			{
-				seesRuleBreak = true;
+				seesRuleBreak = false;
 			}
 			else
 			{
