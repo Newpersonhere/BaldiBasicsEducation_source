@@ -82,7 +82,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
+			baldiTempAnger -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -127,7 +127,7 @@ public class BaldiScript : MonoBehaviour
 		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
 		{
 			db = true;
-			TargetPlayer();
+			TargetBully();
 		}
 		else
 		{
@@ -143,7 +143,7 @@ public class BaldiScript : MonoBehaviour
 		currentPriority = 0f;
 	}
 
-	public void TargetPlayer()
+	public void Targetbully()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
