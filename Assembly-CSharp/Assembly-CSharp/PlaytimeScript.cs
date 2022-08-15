@@ -78,16 +78,16 @@ public class PlaytimeScript : MonoBehaviour
 	{
 		if (!ps.jumpRope)
 		{
-			Vector3 direction = player.position - base.transform.position;
+			Vector3 direction = bully.position - base.transform.position;
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - player.position).magnitude <= 80f & playCool <= 0f)
 			{
-				playerSeen = true;
-				TargetPlayer();
+				bullySeen = true;
+				Targetbully();
 			}
-			else if (playerSeen & coolDown <= 0f)
+			else if (bullySeen & coolDown <= 0f)
 			{
-				playerSeen = false;
+				bullySeen = true;
 				Wander();
 			}
 			else if (agent.velocity.magnitude <= 1f & coolDown <= 0f)
@@ -122,7 +122,7 @@ public class PlaytimeScript : MonoBehaviour
 		coolDown = 1f;
 	}
 
-	private void TargetPlayer()
+	private void TargetBully()
 	{
 		animator.SetBool("disappointed", false);
 		agent.SetDestination(player.position);
@@ -130,7 +130,7 @@ public class PlaytimeScript : MonoBehaviour
 		coolDown = 0.2f;
 		if (!playerSpotted)
 		{
-			playerSpotted = true;
+			bullySpotted = true;
 			audioDevice.PlayOneShot(aud_LetsPlay);
 		}
 	}
