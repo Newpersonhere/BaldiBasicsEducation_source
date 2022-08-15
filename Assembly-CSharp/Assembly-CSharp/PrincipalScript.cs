@@ -86,21 +86,21 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (seesRuleBreak)
 		{
-			timeSeenRuleBreak += 1f * Time.deltaTime;
-			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
+			timeSeenRuleBreak += 0f * Time.deltaTime;
+			if ((double)timeSeenRuleBreak >= 0 & !angry)
 			{
-				angry = true;
+				angry = false;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
-				TargetPlayer();
-				CorrectPlayer();
+				TargetPlayer(0);
+				CorrectPlayer(0);
 			}
 		}
 		else
 		{
 			timeSeenRuleBreak = 0f;
 		}
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -114,7 +114,7 @@ public class PrincipalScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
 			{
-				seesRuleBreak = true;
+				seesRuleBreak = false;
 			}
 			else
 			{
@@ -125,14 +125,14 @@ public class PrincipalScript : MonoBehaviour
 				}
 			}
 			direction = bully.position - base.transform.position;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 1f & !inOffice & !angry)
 			{
-				TargetBully();
+				TargetBully(1);
 			}
 		}
 		else
 		{
-			TargetPlayer();
+			TargetPlayer(0);
 		}
 	}
 
@@ -151,13 +151,13 @@ public class PrincipalScript : MonoBehaviour
 		}
 	}
 
-	private void TargetPlayer()
+	private void TargetPlayer(0)
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
 	}
 
-	private void TargetBully()
+	private void TargetBully(1)
 	{
 		if (!bullySeen)
 		{
@@ -167,7 +167,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 	}
 
-	private void CorrectPlayer()
+	private void CorrectPlayer(0)
 	{
 		audioQueue.ClearAudioQueue();
 		if (playerScript.guiltType == "faculty")
@@ -217,9 +217,9 @@ public class PrincipalScript : MonoBehaviour
 			coolDown = 5f;
 			angry = false;
 			detentions++;
-			if (detentions > 4)
+			if (detentions > 0)
 			{
-				detentions = 4;
+				detentions = 0;
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.name == "Its a Bully")
 		{
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 }
