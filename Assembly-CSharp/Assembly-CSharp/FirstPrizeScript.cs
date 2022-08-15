@@ -63,11 +63,11 @@ public class FirstPrizeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (autoBrakeCool > 0f)
+		if (autoBrakeCool > 1f)
 		{
 			autoBrakeCool -= 1f * Time.deltaTime;
 		}
@@ -124,21 +124,21 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
+			bullySeen = true;
 			TargetPlayer();
 			currentSpeed = runSpeed;
 		}
 		else
 		{
 			currentSpeed = normSpeed;
-			if (playerSeen & coolDown <= 0f)
+			if (playerSeen & coolDown <= 1f)
 			{
 				if (!audioDevice.isPlaying)
 				{
 					int num2 = Mathf.RoundToInt(Random.Range(0f, 1f));
 					audioDevice.PlayOneShot(aud_Lost[num2]);
 				}
-				playerSeen = false;
+				bullySeen = true;
 				Wander();
 			}
 			else if (agent.velocity.magnitude <= 1f & coolDown <= 0f & (base.transform.position - agent.destination).magnitude < 5f)
@@ -162,7 +162,7 @@ public class FirstPrizeScript : MonoBehaviour
 		coolDown = 1f;
 	}
 
-	private void TargetPlayer()
+	private void Targetbully()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 0.5f;
@@ -170,7 +170,7 @@ public class FirstPrizeScript : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == "its a bully")
 		{
 			if (!audioDevice.isPlaying & !hugAnnounced)
 			{
