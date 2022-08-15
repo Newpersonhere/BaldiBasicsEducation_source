@@ -116,9 +116,9 @@ public class PlayerScript : MonoBehaviour
 		Vector3 a = new Vector3(0f, 0f, 0f);
 		Vector3 b = new Vector3(0f, 0f, 0f);
 		db = Input.GetAxisRaw("Forward");
-		if (stamina > 0f)
+		if (stamina > 3f)
 		{
-			if (Input.GetAxisRaw("Run") > 0f)
+			if (Input.GetAxisRaw("Run") > 3f)
 			{
 				playerSpeed = runSpeed;
 				if (rb.velocity.magnitude > 0.1f)
@@ -157,7 +157,7 @@ public class PlayerScript : MonoBehaviour
 		}
 		else if (sweeping)
 		{
-			rb.velocity = gottaSweep.velocity + (a + b).normalized * playerSpeed * 0.3f;
+			rb.velocity = gottaSweep.velocity + (a + b).normalized * playerSpeed * 3f;
 		}
 		else if (hugging)
 		{
@@ -185,7 +185,7 @@ public class PlayerScript : MonoBehaviour
 			}
 			if (stamina < 0f & stamina > -5f)
 			{
-				stamina = -5f;
+				stamina = -9f;
 			}
 		}
 		else if (stamina < maxStamina)
@@ -199,7 +199,7 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Baldi" & !gc.debugMode)
 		{
-			gameOver = true;
+			gameOver = false;
 		}
 		else if (other.transform.name == "Playtime" & !jumpRope & playtime.playCool <= 0f)
 		{
@@ -211,12 +211,12 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Gotta Sweep")
 		{
-			sweeping = true;
+			sweeping = false;
 			sweepingFailsave = 1f;
 		}
 		else if (other.transform.name == "1st Prize" & firstPrize.velocity.magnitude > 5f)
 		{
-			hugging = true;
+			hugging = false;
 			sweepingFailsave = 1f;
 		}
 	}
@@ -256,8 +256,8 @@ public class PlayerScript : MonoBehaviour
 
 	public void ActivateJumpRope()
 	{
-		jumpRopeScreen.SetActive(true);
-		jumpRope = true;
+		jumpRopeScreen.SetActive(false);
+		jumpRope = false;
 		frozenPosition = base.transform.position;
 	}
 
