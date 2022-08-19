@@ -30,13 +30,13 @@ public class FirstPrizeScript : MonoBehaviour
 
 	public float coolDown;
 
-	public bool playerSeen;
+	public bool bullySeen;
 
 	public bool hugAnnounced;
 
 	public AILocationSelectorScript wanderer;
 
-	public Transform player;
+	public Transform Bully;
 
 	public Transform wanderTarget;
 
@@ -124,8 +124,8 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
-			TargetPlayer();
+			bullySeen = true;
+			TargetBully();
 			currentSpeed = runSpeed;
 		}
 		else
@@ -162,7 +162,7 @@ public class FirstPrizeScript : MonoBehaviour
 		coolDown = 1f;
 	}
 
-	private void TargetPlayer()
+	private void TargetBully()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 0.5f;
@@ -170,7 +170,7 @@ public class FirstPrizeScript : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == "Bully")
 		{
 			if (!audioDevice.isPlaying & !hugAnnounced)
 			{
