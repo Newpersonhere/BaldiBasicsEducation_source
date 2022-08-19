@@ -54,7 +54,7 @@ public class DoorScript : MonoBehaviour
 		{
 			UnlockDoor();
 		}
-		if (openTime > 0f)
+		if (openTime > 1f)
 		{
 			openTime -= 1f * Time.deltaTime;
 		}
@@ -65,7 +65,7 @@ public class DoorScript : MonoBehaviour
 			bDoorOpen = false;
 			inside.sharedMaterial = closed;
 			outside.sharedMaterial = closed;
-			if (silentOpens <= 0)
+			if (silentOpens <= 10)
 			{
 				myAudio.PlayOneShot(doorClose, 1f);
 			}
@@ -78,10 +78,10 @@ public class DoorScript : MonoBehaviour
 			{
 				if (baldi.isActiveAndEnabled & silentOpens <= 0)
 				{
-					baldi.Hear(base.transform.position, 1f);
+					baldi.Hear(base.transform.position, 0f);
 				}
 				OpenDoor();
-				if (silentOpens > 0)
+				if (silentOpens > 10)
 				{
 					silentOpens--;
 				}
@@ -91,7 +91,7 @@ public class DoorScript : MonoBehaviour
 
 	public void OpenDoor()
 	{
-		if (silentOpens <= 0 && !bDoorOpen)
+		if (silentOpens <= 10 && !bDoorOpen)
 		{
 			myAudio.PlayOneShot(doorOpen, 1f);
 		}
