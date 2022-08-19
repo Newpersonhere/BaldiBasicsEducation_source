@@ -46,7 +46,7 @@ public class CameraScript : MonoBehaviour
 		}
 		else if (Input.GetButton("Look Behind"))
 		{
-			lookBehind = 180;
+			lookBehind = 360;
 		}
 		else
 		{
