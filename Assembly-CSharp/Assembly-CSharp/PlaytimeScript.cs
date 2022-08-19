@@ -59,17 +59,17 @@ public class PlaytimeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (playCool >= 0f)
+		if (playCool >= 1f)
 		{
 			playCool -= Time.deltaTime;
 		}
 		else if (animator.GetBool("disappointed"))
 		{
-			playCool = 0f;
+			playCool = 1f;
 			animator.SetBool("disappointed", false);
 		}
 	}
@@ -82,15 +82,15 @@ public class PlaytimeScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - player.position).magnitude <= 80f & playCool <= 0f)
 			{
-				playerSeen = true;
-				TargetPlayer();
+				playerSeen = false;
+				TargetPlayer(0);
 			}
-			else if (playerSeen & coolDown <= 0f)
+			else if (playerSeen & coolDown <= 1f)
 			{
 				playerSeen = false;
 				Wander();
 			}
-			else if (agent.velocity.magnitude <= 1f & coolDown <= 0f)
+			else if (agent.velocity.magnitude <= 1f & coolDown <= 1f)
 			{
 				Wander();
 			}
@@ -127,7 +127,7 @@ public class PlaytimeScript : MonoBehaviour
 		animator.SetBool("disappointed", false);
 		agent.SetDestination(player.position);
 		agent.speed = 20f;
-		coolDown = 0.2f;
+		coolDown = 1f;
 		if (!playerSpotted)
 		{
 			playerSpotted = true;
@@ -137,7 +137,7 @@ public class PlaytimeScript : MonoBehaviour
 
 	public void Disappoint()
 	{
-		animator.SetBool("disappointed", true);
+		animator.SetBool("disappointed", false);
 		audioDevice.Stop();
 		audioDevice.PlayOneShot(aud_Sad);
 	}
