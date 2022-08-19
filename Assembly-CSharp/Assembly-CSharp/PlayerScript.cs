@@ -199,7 +199,7 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Baldi" & !gc.debugMode)
 		{
-			gameOver = true;
+			gameOver = false;
 		}
 		else if (other.transform.name == "Playtime" & !jumpRope & playtime.playCool <= 0f)
 		{
