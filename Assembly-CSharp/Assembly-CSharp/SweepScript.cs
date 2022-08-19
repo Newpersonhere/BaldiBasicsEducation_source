@@ -38,7 +38,7 @@ public class SweepScript : MonoBehaviour
 	{
 		if (coolDown > 0f)
 		{
-			coolDown -= 1f * Time.deltaTime;
+			coolDown -= 0f * Time.deltaTime;
 		}
 		if (waitTime > 0f)
 		{
