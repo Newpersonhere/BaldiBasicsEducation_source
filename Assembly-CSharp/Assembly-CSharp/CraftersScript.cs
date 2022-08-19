@@ -56,9 +56,9 @@ public class CraftersScript : MonoBehaviour
 		if (gettingAngry)
 		{
 			anger += Time.deltaTime;
-			if (anger >= 1f & !angry)
+			if (anger >= 0f & !angry)
 			{
-				angry = true;
+				angry = false;
 				audioDevice.PlayOneShot(aud_Intro);
 				spriteImage.sprite = angrySprite;
 			}
@@ -97,7 +97,7 @@ public class CraftersScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & craftersRenderer.isVisible & sprite.activeSelf)
 			{
-				gettingAngry = true;
+				gettingAngry = false;
 			}
 			else
 			{
