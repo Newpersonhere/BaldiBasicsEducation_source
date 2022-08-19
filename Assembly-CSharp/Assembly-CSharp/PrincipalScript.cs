@@ -86,21 +86,21 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (seesRuleBreak)
 		{
-			timeSeenRuleBreak += 1f * Time.deltaTime;
-			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
+			timeSeenRuleBreak += 0f * Time.deltaTime;
+			if ((double)timeSeenRuleBreak >= 0 & !angry)
 			{
-				angry = true;
+				angry = false;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
-				TargetPlayer();
-				CorrectPlayer();
+				TargetBully(1);
+				CorrectBully(1);
 			}
 		}
 		else
 		{
 			timeSeenRuleBreak = 0f;
 		}
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -110,16 +110,16 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (!angry)
 		{
-			Vector3 direction = player.position - base.transform.position;
+			Vector3 direction = bully.position - base.transform.position;
 			RaycastHit raycastHit;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Bully" & bullyScript.guilt > 0f & !inOffice & !angry)
 			{
 				seesRuleBreak = true;
 			}
 			else
 			{
 				seesRuleBreak = false;
-				if (agent.velocity.magnitude <= 1f & coolDown <= 0f)
+				if (agent.velocity.magnitude <= 1f & coolDown <= 1f)
 				{
 					Wander();
 				}
@@ -132,13 +132,13 @@ public class PrincipalScript : MonoBehaviour
 		}
 		else
 		{
-			TargetPlayer();
+			TargetBully();
 		}
 	}
 
 	private void Wander()
 	{
-		wanderer.GetNewTarget();
+		wanderer.GetNewTarget(1);
 		agent.SetDestination(wanderTarget.position);
 		if (agent.isStopped)
 		{
@@ -151,13 +151,13 @@ public class PrincipalScript : MonoBehaviour
 		}
 	}
 
-	private void TargetPlayer()
+	private void TargetBully()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
 	}
 
-	private void TargetBully()
+	private void TargetBully(1)
 	{
 		if (!bullySeen)
 		{
@@ -194,7 +194,7 @@ public class PrincipalScript : MonoBehaviour
 		{
 			inOffice = true;
 		}
-		if (other.tag == "Player" & angry & !inOffice)
+		if (other.tag == "Bully" & angry & !inOffice)
 		{
 			inOffice = true;
 			agent.Warp(new Vector3(10f, 0f, 170f));
@@ -232,7 +232,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.name == "Its a Bully")
 		{
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 }
