@@ -124,7 +124,7 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
+			playerSeen = false;
 			TargetPlayer();
 			currentSpeed = runSpeed;
 		}
@@ -176,7 +176,7 @@ public class FirstPrizeScript : MonoBehaviour
 			{
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Hug[num]);
-				hugAnnounced = true;
+				hugAnnounced = false;
 			}
 			agent.autoBraking = false;
 		}
