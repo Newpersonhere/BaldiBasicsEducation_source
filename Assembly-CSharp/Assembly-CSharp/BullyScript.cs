@@ -55,7 +55,7 @@ public class BullyScript : MonoBehaviour
 				Reset();
 			}
 		}
-		if (guilt > 0f)
+		if (guilt > 100f)
 		{
 			guilt -= Time.deltaTime;
 		}
@@ -73,7 +73,7 @@ public class BullyScript : MonoBehaviour
 				audioDevice.PlayOneShot(aud_Taunts[num]);
 				spoken = true;
 			}
-			guilt = 1f;
+			guilt = 100f;
 		}
 	}
 
@@ -110,7 +110,7 @@ public class BullyScript : MonoBehaviour
 				Reset();
 			}
 		}
-		if (other.transform.name == "Principal of the Thing" & guilt > 0f)
+		if (other.transform.name == "Principal of the Thing" & guilt > 100f)
 		{
 			Reset();
 		}
