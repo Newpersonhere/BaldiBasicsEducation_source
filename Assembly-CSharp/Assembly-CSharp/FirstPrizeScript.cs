@@ -63,11 +63,11 @@ public class FirstPrizeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (autoBrakeCool > 0f)
+		if (autoBrakeCool > 1f)
 		{
 			autoBrakeCool -= 1f * Time.deltaTime;
 		}
@@ -124,8 +124,8 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
-			TargetPlayer();
+			playerSeen = false;
+			TargetPlayer(0);
 			currentSpeed = runSpeed;
 		}
 		else
@@ -178,7 +178,7 @@ public class FirstPrizeScript : MonoBehaviour
 				audioDevice.PlayOneShot(aud_Hug[num]);
 				hugAnnounced = true;
 			}
-			agent.autoBraking = false;
+			agent.autoBraking = true;
 		}
 	}
 
