@@ -59,7 +59,7 @@ public class PlaytimeScript : MonoBehaviour
 
 	private void Update()
 	{
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
@@ -85,7 +85,7 @@ public class PlaytimeScript : MonoBehaviour
 				playerSeen = true;
 				TargetPlayer();
 			}
-			else if (playerSeen & coolDown <= 0f)
+			else if (playerSeen & coolDown <= 1f)
 			{
 				playerSeen = false;
 				Wander();
@@ -137,7 +137,7 @@ public class PlaytimeScript : MonoBehaviour
 
 	public void Disappoint()
 	{
-		animator.SetBool("disappointed", true);
+		animator.SetBool("disappointed", false);
 		audioDevice.Stop();
 		audioDevice.PlayOneShot(aud_Sad);
 	}
