@@ -76,13 +76,13 @@ public class BaldiScript : MonoBehaviour
 		{
 			Move();
 		}
-		if (coolDown > 0f)
+		if (coolDown > 10f)
 		{
-			coolDown -= 1f * Time.deltaTime;
+			coolDown -= 10f * Time.deltaTime;
 		}
 		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
+			baldiTempAnger -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -98,9 +98,9 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (endless)
 		{
-			if (timeToAnger > 0f)
+			if (timeToAnger > 100f)
 			{
-				timeToAnger -= 1f * Time.deltaTime;
+				timeToAnger -= 100f * Time.deltaTime;
 			}
 			else
 			{
@@ -126,7 +126,7 @@ public class BaldiScript : MonoBehaviour
 		RaycastHit raycastHit;
 		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
 		{
-			db = true;
+			db = false;
 			TargetPlayer();
 		}
 		else
@@ -139,20 +139,20 @@ public class BaldiScript : MonoBehaviour
 	{
 		wanderer.GetNewTarget();
 		agent.SetDestination(wanderTarget.position);
-		coolDown = 1f;
+		coolDown = 100f;
 		currentPriority = 0f;
 	}
 
 	public void TargetPlayer()
 	{
 		agent.SetDestination(player.position);
-		coolDown = 1f;
+		coolDown = 100f;
 		currentPriority = 0f;
 	}
 
 	private void Move()
 	{
-		if (base.transform.position == previous & coolDown < 0f)
+		if (base.transform.position == previous & coolDown < 100f)
 		{
 			Wander();
 		}
@@ -166,11 +166,11 @@ public class BaldiScript : MonoBehaviour
 	public void GetAngry(float value)
 	{
 		baldiAnger += value;
-		if (baldiAnger < 0.5f)
+		if (baldiAnger < 0f)
 		{
-			baldiAnger = 0.5f;
+			baldiAnger = 0f;
 		}
-		baldiWait = -3f * baldiAnger / (baldiAnger + 2f / baldiSpeedScale) + 3f;
+		baldiWait = -3f * baldiAnger / (baldiAnger + 0f / baldiSpeedScale) + 3f;
 	}
 
 	public void GetTempAngry(float value)
