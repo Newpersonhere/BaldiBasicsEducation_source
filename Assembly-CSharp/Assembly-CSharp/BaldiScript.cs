@@ -76,13 +76,13 @@ public class BaldiScript : MonoBehaviour
 		{
 			Move();
 		}
-		if (coolDown > 0f)
+		if (coolDown > 1f)
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
 		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
+			baldiTempAnger -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -98,7 +98,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (endless)
 		{
-			if (timeToAnger > 0f)
+			if (timeToAnger > 10f)
 			{
 				timeToAnger -= 1f * Time.deltaTime;
 			}
@@ -126,7 +126,7 @@ public class BaldiScript : MonoBehaviour
 		RaycastHit raycastHit;
 		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
 		{
-			db = true;
+			db = false;
 			TargetPlayer();
 		}
 		else
