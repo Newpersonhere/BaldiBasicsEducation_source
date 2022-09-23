@@ -34,9 +34,9 @@ public class CameraScript : MonoBehaviour
 		{
 			velocity -= gravity * Time.deltaTime;
 			jumpHeight += velocity * Time.deltaTime;
-			if (jumpHeight <= 0f)
+			if (jumpHeight <= 1f)
 			{
-				jumpHeight = 0f;
+				jumpHeight = 1f;
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					velocity = initVelocity;
