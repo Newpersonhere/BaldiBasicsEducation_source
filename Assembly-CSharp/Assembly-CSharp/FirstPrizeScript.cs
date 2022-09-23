@@ -124,7 +124,7 @@ public class FirstPrizeScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				audioDevice.PlayOneShot(aud_Found[num]);
 			}
-			playerSeen = true;
+			baldiSeen = true;
 			TargetPlayer();
 			currentSpeed = runSpeed;
 		}
