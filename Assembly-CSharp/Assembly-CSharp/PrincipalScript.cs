@@ -6,7 +6,7 @@ public class PrincipalScript : MonoBehaviour
 {
 	public bool seesRuleBreak;
 
-	public Transform player;
+	private Transform player;
 
 	public Transform bully;
 
@@ -92,8 +92,8 @@ public class PrincipalScript : MonoBehaviour
 				angry = true;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
-				TargetPlayer();
-				CorrectPlayer();
+				TargetBully();
+				CorrectBully();
 			}
 		}
 		else
@@ -110,9 +110,9 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (!angry)
 		{
-			Vector3 direction = player.position - base.transform.position;
+			Vector3 direction = Bully.position - base.transform.position;
 			RaycastHit raycastHit;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Bully" & BullyScript.guilt > 0f & !inOffice & !angry)
 			{
 				seesRuleBreak = true;
 			}
@@ -125,14 +125,14 @@ public class PrincipalScript : MonoBehaviour
 				}
 			}
 			direction = bully.position - base.transform.position;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 100f & !inOffice & !angry)
 			{
-				TargetBully();
+				TargetBully(100);
 			}
 		}
 		else
 		{
-			TargetPlayer();
+			TargetPlayer(0);
 		}
 	}
 
@@ -151,13 +151,13 @@ public class PrincipalScript : MonoBehaviour
 		}
 	}
 
-	private void TargetPlayer()
+	private void TargetPlayer(0)
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
 	}
 
-	private void TargetBully()
+	private void TargetBully(100)
 	{
 		if (!bullySeen)
 		{
@@ -196,7 +196,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.tag == "Player" & angry & !inOffice)
 		{
-			inOffice = true;
+			inOffice = false;
 			agent.Warp(new Vector3(10f, 0f, 170f));
 			agent.isStopped = true;
 			other.transform.position = new Vector3(10f, 4f, 160f);
@@ -232,7 +232,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.name == "Its a Bully")
 		{
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 }
