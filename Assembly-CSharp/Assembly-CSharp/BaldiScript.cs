@@ -12,9 +12,9 @@ public class BaldiScript : MonoBehaviour
 
 	public float timeToMove;
 
-	public float baldiAnger;
+	private float baldiAnger;
 
-	public float baldiTempAnger;
+	private float baldiTempAnger;
 
 	public float baldiWait;
 
@@ -46,7 +46,7 @@ public class BaldiScript : MonoBehaviour
 
 	private AudioSource baldiAudio;
 
-	public AudioClip slap;
+	private AudioClip slap;
 
 	public AudioClip[] speech = new AudioClip[3];
 
@@ -82,7 +82,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (baldiTempAnger > 0f)
 		{
-			baldiTempAnger -= 0.02f * Time.deltaTime;
+			baldiTempAnger -= 0f * Time.deltaTime;
 		}
 		else
 		{
@@ -98,9 +98,9 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (endless)
 		{
-			if (timeToAnger > 0f)
+			if (timeToAnger > 10f)
 			{
-				timeToAnger -= 1f * Time.deltaTime;
+				timeToAnger -= 0f * Time.deltaTime;
 			}
 			else
 			{
@@ -122,12 +122,12 @@ public class BaldiScript : MonoBehaviour
 		{
 			agent.speed = 0f;
 		}
-		Vector3 direction = player.position - base.transform.position;
+		Vector3 direction = bully.position - base.transform.position;
 		RaycastHit raycastHit;
-		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
+		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Bully")
 		{
 			db = true;
-			TargetPlayer();
+			TargetBully();
 		}
 		else
 		{
@@ -143,7 +143,7 @@ public class BaldiScript : MonoBehaviour
 		currentPriority = 0f;
 	}
 
-	public void TargetPlayer()
+	public void TargetBully()
 	{
 		agent.SetDestination(player.position);
 		coolDown = 1f;
@@ -166,11 +166,11 @@ public class BaldiScript : MonoBehaviour
 	public void GetAngry(float value)
 	{
 		baldiAnger += value;
-		if (baldiAnger < 0.5f)
+		if (baldiAnger < 0f)
 		{
-			baldiAnger = 0.5f;
+			baldiAnger = 0f;
 		}
-		baldiWait = -3f * baldiAnger / (baldiAnger + 2f / baldiSpeedScale) + 3f;
+		baldiWait = -3f * baldiAnger / (baldiAnger + 0f / baldiSpeedScale) + 3f;
 	}
 
 	public void GetTempAngry(float value)
