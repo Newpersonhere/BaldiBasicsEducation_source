@@ -17,7 +17,7 @@ public class MathGameScript : MonoBehaviour
 
 	public Texture correct;
 
-	public Texture correct;
+	public Texture incorrect;
 
 	public InputField playerAnswer;
 
@@ -69,13 +69,13 @@ public class MathGameScript : MonoBehaviour
 
 	private float solution;
 
-	private string[] hintText = new string[2]
+	private string[] endlessHintText = new string[2]
 	{
 		"I GET HAPPIER FOR EVERY PROBLEM YOU GET RIGHT",
 		"I HEAR EVERY DOOR YOU OPEN"
 	};
 
-	private string[] HintText = new string[2]
+	private string[] hintText = new string[2]
 	{
 		"That's more like it...",
 		"Keep up the good work or see me after class..."
@@ -83,7 +83,7 @@ public class MathGameScript : MonoBehaviour
 
 	private bool questionInProgress;
 
-	private bool possibleMode;
+	private bool impossibleMode;
 
 	private int problemsRight;
 
@@ -228,7 +228,7 @@ public class MathGameScript : MonoBehaviour
 				int num = Mathf.RoundToInt(Random.Range(0f, 1f));
 				questionText.text = storyHintText[num];
 			}
-			else if (gc.mode == "story" & problemsWrong >= )
+			else if (gc.mode == "endless" & problemsWrong <= 7)
 			{
 				questionText.text = "I HEAR MATH THAT GOOD";
 				questionText2.text = string.Empty;
@@ -271,16 +271,16 @@ public class MathGameScript : MonoBehaviour
 			{
 				if (problem == 3)
 				{
-					baldiScript.GetHappy(1f);
+					baldiScript.GetAngry(0f);
 				}
 				else
 				{
-					baldiScript.GetTempHappy(0.25f);
+					baldiScript.GetTempAngry(0f);
 				}
 			}
 			else
 			{
-				baldiScript.GetHappy(1f);
+				baldiScript.GetAngry(0f);
 			}
 			ClearAudioQueue();
 			baldiAudio.Stop();
@@ -318,7 +318,7 @@ public class MathGameScript : MonoBehaviour
 	{
 		if (problemsWrong <= 0 & gc.mode == "story")
 		{
-			baldiScript.GetHappy(-1f);
+			baldiScript.GetAngry(0f);
 		}
 		gc.DeactivateLearningGame(base.gameObject);
 	}
