@@ -125,9 +125,9 @@ public class PrincipalScript : MonoBehaviour
 				}
 			}
 			direction = bully.position - base.transform.position;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 100f & !inOffice & !angry)
 			{
-				TargetBully();
+				TargetBully(10);
 			}
 		}
 		else
@@ -163,7 +163,7 @@ public class PrincipalScript : MonoBehaviour
 		{
 			agent.SetDestination(bully.position);
 			audioQueue.QueueAudio(audBullying);
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 
@@ -232,7 +232,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.name == "Its a Bully")
 		{
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 }
