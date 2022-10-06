@@ -80,13 +80,13 @@ public class BaldiScript : MonoBehaviour
 		{
 			coolDown -= 1f * Time.deltaTime;
 		}
-		if (baldiTempHappy > 0f)
+		if (baldiTempAngry > 0f)
 		{
-			baldiTempHappy -= 0.02f * Time.deltaTime;
+			baldiTempAngry -= 0f * Time.deltaTime;
 		}
 		else
 		{
-			baldiTempHappy = 0f;
+			baldiTempAngry = 0f;
 		}
 		if (antiHearingTime > 0f)
 		{
@@ -98,9 +98,9 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (endless)
 		{
-			if (timeToHappy > 0f)
+			if (timeToAngry > 0f)
 			{
-				timeToHappy -= 1f * Time.deltaTime;
+				timeToAngry -= 0f * Time.deltaTime;
 			}
 			else
 			{
@@ -126,7 +126,7 @@ public class BaldiScript : MonoBehaviour
 		RaycastHit raycastHit;
 		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player")
 		{
-			db = true;
+			db = false;
 			Target();
 		}
 		else
@@ -163,19 +163,19 @@ public class BaldiScript : MonoBehaviour
 		baldiAnimator.SetTrigger("slap");
 	}
 
-	public void GetHappy(float value)
+	public void GetAngry(float value)
 	{
-		baldiHappy += value;
-		if (baldiHappy < 0.5f)
+		baldiAngry += value;
+		if (baldiAngry < 0f)
 		{
-			baldiHappy = 0.5f;
+			baldiAngry = 0f;
 		}
-		baldiWait = -3f * baldiHappy / (baldiHappy + 2f / baldiSpeedScale) + 3f;
+		baldiWait = -3f * baldiAngry / (baldiAngry + 0f / baldiSpeedScale) + 3f;
 	}
 
-	public void GetTempHappy(float value)
+	public void GetTempAngry(float value)
 	{
-		baldiTempHappy += value;
+		baldiTempAngry += value;
 	}
 
 	public void Hear(Vector3 soundLocation, float priority)
