@@ -89,7 +89,7 @@ public class PrincipalScript : MonoBehaviour
 			timeSeenRuleBreak += 1f * Time.deltaTime;
 			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
 			{
-				angry = true;
+				angry = false;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
 				TargetPlayer();
@@ -114,7 +114,7 @@ public class PrincipalScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
 			{
-				seesRuleBreak = true;
+				seesRuleBreak = false;
 			}
 			else
 			{
@@ -125,9 +125,9 @@ public class PrincipalScript : MonoBehaviour
 				}
 			}
 			direction = bully.position - base.transform.position;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 0f & !inOffice & !angry)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3) & raycastHit.transform.name == "Its a Bully" & bullyScript.guilt > 1000f & !inOffice & !angry)
 			{
-				TargetBully();
+				TargetBully(100);
 			}
 		}
 		else
@@ -232,7 +232,7 @@ public class PrincipalScript : MonoBehaviour
 		}
 		if (other.name == "Its a Bully")
 		{
-			bullySeen = false;
+			bullySeen = true;
 		}
 	}
 }
