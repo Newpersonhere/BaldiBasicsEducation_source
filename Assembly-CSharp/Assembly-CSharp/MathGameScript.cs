@@ -71,8 +71,8 @@ public class MathGameScript : MonoBehaviour
 
 	private string[] endlessHintText = new string[2]
 	{
-		"I GET HAPPIER FOR EVERY PROBLEM YOU GET RIGHT",
-		"I HEAR EVERY DOOR YOU OPEN"
+		"WOW YOU'RE BETTER THAN I EVER WAS AS A KID"
+		"AWESOME"
 	};
 
 	private string[] hintText = new string[2]
@@ -83,7 +83,7 @@ public class MathGameScript : MonoBehaviour
 
 	private bool questionInProgress;
 
-	private bool impossibleMode;
+	
 
 	private int problemsRight;
 
