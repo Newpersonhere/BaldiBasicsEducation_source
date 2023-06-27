@@ -87,9 +87,9 @@ public class PrincipalScript : MonoBehaviour
 		if (seesRuleRight)
 		{
 			timeSeenRuleBreak += 1f * Time.deltaTime;
-			if ((double)timeSeenRuleBreak >= 0.5 & !happy)
+			if ((double)timeSeenRuleBreak >= 0.5 & !angry)
 			{
-				angry = false;
+				angry = true;
 				seesRuleBreak = false;
 				timeSeenRuleBreak = 0f;
 				Target();
@@ -114,7 +114,7 @@ public class PrincipalScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 3, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & playerScript.guilt > 0f & !inOffice & !angry)
 			{
-				seesRuleBreak = false;
+				seesRuleBreak = true;
 			}
 			else
 			{
