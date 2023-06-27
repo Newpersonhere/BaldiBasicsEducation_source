@@ -145,7 +145,7 @@ public class BaldiScript : MonoBehaviour
 
 	public void Target()
 	{
-		agent.SetDestination(player.position);
+		
 		coolDown = 1f;
 		currentPriority = 0f;
 	}
@@ -159,8 +159,8 @@ public class BaldiScript : MonoBehaviour
 		moveFrames = 10f;
 		timeToMove = baldiWait - baldiTempHappy;
 		previous = base.transform.position;
-		baldiAudio.PlayOneShot(slap);
-		baldiAnimator.SetTrigger("slap");
+		
+		
 	}
 
 	public void GetAngry(float value)
